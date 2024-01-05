@@ -1,21 +1,12 @@
-import Car from './car'; // Import the Car class from car.js
+import Car from './10-car';
 
-class EVCar extends Car {
+export default class EVCar extends Car {
   constructor(brand, motor, color, range) {
-    super(brand, motor);
-
-    // Private attributes with underscores
-    this._brand = brand;
-    this._motor = motor;
-    this._color = color;
+    super(brand, motor, color);
     this._range = range;
   }
 
-  // Override the cloneCar method
-  cloneCar() {
-    // Return a new instance of the Car class with the same name and model
-    return new Car(this._name, this._model);
+  static get [Symbol.species]() {
+    return Car;
   }
 }
-
-export default EVCar;

@@ -1,29 +1,21 @@
 export default class Building {
   constructor(sqft) {
-    // Check if the class is directly instantiated (not extended)
-    if (this.constructor === Building) {
-      throw new Error('Building class should be extended, not directly instantiated.');
+    // Ensure that the class is treated as abstract
+    if (new.target === Building) {
+      throw new TypeError('Abstract class Building cannot be instantiated directly.');
     }
 
-    // Check if the extended class overrides evacuationWarningMessage
-    if (!('evacuationWarningMessage' in this.constructor.prototype)) {
-      throw new Error('Class extending Building must override evacuationWarningMessage');
-    }
-
-    // Set the square footage
+    // Store attributes with underscores
     this._sqft = sqft;
   }
 
+  // Getter for sqft
   get sqft() {
     return this._sqft;
   }
 
-  set sqft(value) {
-    // Ensure sqft is a number
-    if (typeof value !== 'number') {
-      throw new TypeError('Sqft must be a number');
-    }
-
-    this._sqft = value;
+  // Abstract method to be implemented by subclasses
+  evacuationWarningMessage() {
+    throw new Error('Class extending Building must override evacuationWarningMessage');
   }
 }

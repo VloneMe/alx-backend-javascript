@@ -5,14 +5,11 @@ export default class EVCar extends Car {
     super(brand, motor, color);
     this._range = range;
   }
-
-  get range() {
-    return this._range;
-  }
-
-  // Override cloneCar to return an instance of Car
+  
   cloneCar() {
-    const clonedCar = super.cloneCar();
-    return new Car(clonedCar.brand, clonedCar.motor, clonedCar.color);
+    const clone = new (
+      Object.getPrototypeOf(this.constructor))(this._brand, this._motor, this._color);
+    clone._range = this._range;
+    return clone;
   }
 }
